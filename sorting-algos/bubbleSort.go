@@ -37,3 +37,32 @@ func InsertionSort(arr []int) {
 		}
 	}
 }
+
+func merge(a1, a2 []int) []int {
+	var res []int
+	l, r := 0, 0
+	for l < len(a1) && r < len(a2) {
+		if a1[l] <= a2[r] {
+			res = append(res, a1[l])
+			l++
+		} else {
+			res = append(res, a2[r])
+			r++
+		}
+	}
+	res = append(res, a1[l:]...)
+	res = append(res, a2[r:]...)
+	return res
+}
+
+func MergeSort(arr []int) []int {
+	if len(arr) < 2 {
+		return arr
+	}
+	m := len(arr) / 2
+
+	left := MergeSort(arr[:m])
+	right := MergeSort(arr[m:])
+
+	return merge(left, right)
+}
